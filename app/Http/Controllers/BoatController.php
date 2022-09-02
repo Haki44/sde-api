@@ -88,7 +88,7 @@ class BoatController extends Controller
 
         $boat = Boat::create($data);
 
-         if($request->file()) {
+        if($request->file()) {
             $filename = $boat->name . '-' . time() . '-' . $request->picture->getClientOriginalName();
             $file = $boat->pictures()->create([
                 'boat_id' => $boat->id,
@@ -96,7 +96,7 @@ class BoatController extends Controller
                 'is_first' => 1,
             ]);
             $request->file('picture')->storeAs('boat/' . $boat->id, $file->id . '-' . $filename, 'public');
-         }
+        }
 
         // if(isset($data['picture'])){
 
@@ -215,7 +215,21 @@ class BoatController extends Controller
         ]
         );
 
-        Boat::where('id', $id)->update($data);
+        $boat = Boat::where('id', $id)->update($data);
+
+        // $request->validate([
+        //     'picture' => 'mimes:jpg,jpeg,png,csv,txt,xlx,xls,pdf|max:2048',
+        // ]);
+
+        // if($request->file()) {
+        //     $filename = $boat->name . '-' . time() . '-' . $request->picture->getClientOriginalName();
+        //     $file = $boat->pictures()->create([
+        //         'boat_id' => $boat->id,
+        //         'picture' => $filename,
+        //         'is_first' => 0,
+        //     ]);
+        //     $request->file('picture')->storeAs('boat/' . $boat->id, $file->id . '-' . $filename, 'public');
+        //  }
 
         // $data_files = $request->validate([
         //     'filename_delete' => 'nullable|array',

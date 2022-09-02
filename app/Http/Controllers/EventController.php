@@ -35,21 +35,22 @@ class EventController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request, $lang, $id)
+    public function store(Request $request)
     {
         $data = $request->validate([
             'title' => 'required|max:255',
             'start' => 'required|date',
             'end' => 'required|date',
+            'boat_id' => 'required|numeric',
         ]);
 
         // on ajoute un jour pour avoir le bon affichage sur le calendrier car dernier jour n'est pas inclut
-        $data['end'] = date("Y-m-d", strtotime($data['end'].'+ 1 days'));
-        $data['boat_id'] = $id;
+        // $data['end'] = date("Y-m-d", strtotime($data['end'].'+ 1 days'));
+        // $data['boat_id'] = $id;
 
         Event::create($data);
 
-        return redirect()->route('event.index', [app()->getLocale(), $id])->with('success', 'La date à bien été ajoutée');
+        // return redirect()->route('event.index', [app()->getLocale(), $id])->with('success', 'La date à bien été ajoutée');
     }
 
     /**
@@ -60,7 +61,7 @@ class EventController extends Controller
      */
     public function show($id)
     {
-        //
+        return new EventResource(Event::findOrFail($id));
     }
 
     /**
@@ -83,7 +84,14 @@ class EventController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $data = $request->validate([
+            'title' => 'required|max:255',
+            'start' => 'required|date',
+            'end' => 'required|date',
+            'boat_id' => 'required|numeric',
+        ]);
+
+        Event::where('id', $id)->update($data);
     }
 
     /**
@@ -94,6 +102,6 @@ class EventController extends Controller
      */
     public function destroy($id)
     {
-        //
+        return new EventResource(Event::findOrFail($id)->delete());
     }
 }

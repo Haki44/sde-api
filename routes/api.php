@@ -7,6 +7,7 @@ use App\Http\Controllers\ContactController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\PeriodController;
 use App\Http\Controllers\PictureController;
+use App\Http\Controllers\LevelController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -51,4 +52,5 @@ Route::apiResource('adventure', AdventureController::class);
 Route::apiResource('picture', PictureController::class);
 Route::apiResource('period', PeriodController::class);
 Route::apiResource('event', EventController::class);
+Route::apiResource('level', LevelController::class);
 

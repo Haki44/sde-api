@@ -55,42 +55,52 @@ class AdventureController extends Controller
             'arrival_date' => 'required|date',
             'description_fr' => 'required|max:10000',
             'description_en' => 'required|max:10000',
-            'picture' => 'array',
+            'picture' => 'required|mimes:jpg,jpeg,png,csv,txt,xlx,xls,pdf|max:2048',
         ],
         [
-            'name.required' => 'You must indicate the name of the boat',
-            'name.max' => 'The name of the boat is too long !',
-            'description_fr.required' => 'You must give a french description to your boat',
-            'description_en.required' => 'You must give an english description to your boat',
+            'name.required' => 'You must indicate the name of the adventure',
+            'name.max' => 'The name of the adventure is too long !',
+            'description_fr.required' => 'You must give a french description to your adventure',
+            'description_en.required' => 'You must give an english description to your adventure',
         ]
         );
 
         $adventure = Adventure::create($data);
 
-        if(isset($data['picture'])){
-
-            foreach($data['picture'] as $key => $uploadedFile) {
-                $filename = $adventure->name . '-' . time() . '-' . $uploadedFile->getClientOriginalName();
-
-                if($key == 0){
-                    $file = $adventure->pictures()->create([
-                        'adventure_id' => $adventure->id,
-                        'picture' => $filename,
-                        'is_first' => 1,
-                    ]);
-                } else {
-                    $file = $adventure->pictures()->create([
-                        'adventure_id' => $adventure->id,
-                        'picture' => $filename,
-                        'is_first' => 0,
-                    ]);
-                }
-
-                $uploadedFile->storeAs('adventure/' . $adventure->id, $file->id . '-' . $filename, 'public');
-            }
+        if($request->file()) {
+            $filename = $adventure->name . '-' . time() . '-' . $request->picture->getClientOriginalName();
+            $file = $adventure->pictures()->create([
+                'adventure_id' => $adventure->id,
+                'picture' => $filename,
+                'is_first' => 1,
+            ]);
+            $request->file('picture')->storeAs('adventure/' . $adventure->id, $file->id . '-' . $filename, 'public');
         }
 
-        return redirect()->route('adventure.index', app()->getLocale());
+        // if(isset($data['picture'])){
+
+        //     foreach($data['picture'] as $key => $uploadedFile) {
+        //         $filename = $adventure->name . '-' . time() . '-' . $uploadedFile->getClientOriginalName();
+
+        //         if($key == 0){
+        //             $file = $adventure->pictures()->create([
+        //                 'adventure_id' => $adventure->id,
+        //                 'picture' => $filename,
+        //                 'is_first' => 1,
+        //             ]);
+        //         } else {
+        //             $file = $adventure->pictures()->create([
+        //                 'adventure_id' => $adventure->id,
+        //                 'picture' => $filename,
+        //                 'is_first' => 0,
+        //             ]);
+        //         }
+
+        //         $uploadedFile->storeAs('adventure/' . $adventure->id, $file->id . '-' . $filename, 'public');
+        //     }
+        // }
+
+        // return redirect()->route('adventure.index', app()->getLocale());
     }
 
     /**
@@ -126,7 +136,7 @@ class AdventureController extends Controller
      * @param  \App\Models\Adventure  $adventure
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $lang, $id)
+    public function update(Request $request, $id)
     {
         $data = $request->validate([
             'name' => 'required|max:255',
@@ -150,38 +160,38 @@ class AdventureController extends Controller
 
         Adventure::where('id', $id)->update($data);
 
-        $data_files = $request->validate([
-            'filename_delete' => 'nullable|array',
-        ]);
+        // $data_files = $request->validate([
+        //     'filename_delete' => 'nullable|array',
+        // ]);
 
-        if(!empty($data_files['filename_delete'])){
+        // if(!empty($data_files['filename_delete'])){
 
-            Picture::whereIn('id', $data_files['filename_delete'])->delete();
-        }
+        //     Picture::whereIn('id', $data_files['filename_delete'])->delete();
+        // }
 
-        $adventure = Adventure::where('id', $id)->find($id);
+        // $adventure = Adventure::where('id', $id)->find($id);
 
-        $data_files = $request->validate([
-            'picture' => 'array',
-        ]);
+        // $data_files = $request->validate([
+        //     'picture' => 'array',
+        // ]);
 
 
-        if(isset($data_files['picture'])){
+        // if(isset($data_files['picture'])){
 
-            foreach($data_files['picture'] as $uploadedFile) {
-                $filename = $adventure->name . '-' . time() . '-' . $uploadedFile->getClientOriginalName();
+        //     foreach($data_files['picture'] as $uploadedFile) {
+        //         $filename = $adventure->name . '-' . time() . '-' . $uploadedFile->getClientOriginalName();
 
-                $file = $adventure->pictures()->create([
-                    'adventure_id' => $adventure->id,
-                    'picture' => $filename,
-                    'is_first' => 0,
-                ]);
+        //         $file = $adventure->pictures()->create([
+        //             'adventure_id' => $adventure->id,
+        //             'picture' => $filename,
+        //             'is_first' => 0,
+        //         ]);
 
-                $uploadedFile->storeAs('adventure/' . $adventure->id, $file->id . '-' . $filename, 'public');
-            }
-        }
+        //         $uploadedFile->storeAs('adventure/' . $adventure->id, $file->id . '-' . $filename, 'public');
+        //     }
+        // }
 
-        return redirect()->route('adventure.index', app()->getLocale());
+        // return redirect()->route('adventure.index', app()->getLocale());
     }
 
     /**
@@ -190,11 +200,9 @@ class AdventureController extends Controller
      * @param  \App\Models\Adventure  $adventure
      * @return \Illuminate\Http\Response
      */
-    public function destroy($lang, $id)
+    public function destroy($id)
     {
-        Adventure::find($id)->delete();
-
-        return redirect()->route('adventure.index', app()->getLocale());
+        return new AdventureResource(Adventure::findOrFail($id)->delete());
     }
 
     // public function booking($lang, $id)
