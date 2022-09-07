@@ -1,13 +1,16 @@
 <?php
 
+use App\Http\Controllers\AdventureBookingController;
 use App\Http\Controllers\AdventureController;
 use App\Http\Controllers\Auth\AuthController;
+use App\Http\Controllers\BoatBookingController;
 use App\Http\Controllers\BoatController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\PeriodController;
 use App\Http\Controllers\PictureController;
 use App\Http\Controllers\LevelController;
+use App\Http\Controllers\SkipperController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -44,7 +47,8 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('registerAdventureBooking', [AdventureController::class, 'register_booking']);
 });
 
-Route::middleware(['auth', 'can:admin'])->group(function () {
+Route::middleware(['admin'])->group(function () {
+    
 });
 
 Route::apiResource('boat', BoatController::class);
@@ -53,4 +57,9 @@ Route::apiResource('picture', PictureController::class);
 Route::apiResource('period', PeriodController::class);
 Route::apiResource('event', EventController::class);
 Route::apiResource('level', LevelController::class);
+Route::apiResource('boat-booking', BoatBookingController::class);
+Route::apiResource('adventure-booking', AdventureBookingController::class);
+Route::apiResource('contact', ContactController::class);
+Route::apiResource('skipper', SkipperController::class);
+
 

@@ -16,20 +16,43 @@ use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 
+use OpenApi\Annotation as OA;
+
 class BoatController extends Controller
 {
 
-    public function skipper_choice(Request $request)
-    {
-        $lang = App::getLocale();
-
-        return view('boat.skipper-choice', compact('lang', 'request'));
-    }
-
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
+     * @OA\Get(
+     *      path="/boat",
+     *      operationId="indexBoat",
+     *      tags={"Boats"},
+
+     *      summary="Get List Of boats",
+     *      description="Returns all boats",
+     *      @OA\Response(
+     *          response=200,
+     *          description="Successful operation",
+     *          @OA\MediaType(
+     *           mediaType="application/json",
+     *      )
+     *      ),
+     *      @OA\Response(
+     *          response=401,
+     *          description="Unauthenticated",
+     *      ),
+     *      @OA\Response(
+     *          response=403,
+     *          description="Forbidden"
+     *      ),
+     * @OA\Response(
+     *      response=400,
+     *      description="Bad Request"
+     *   ),
+     * @OA\Response(
+     *      response=404,
+     *      description="not found"
+     *   ),
+     *  )
      */
     public function index()
     {
@@ -37,22 +60,21 @@ class BoatController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        $periods = Period::get();
+     * @OA\Post(
+     *      path="/boat",
+     *      operationId="storeBoat",
+     *      tags={"Boats"},
 
-        return view('boat.create', compact('periods'));
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     *      summary="Store boat",
+     *      description="Store boat",
+     *      @OA\Response(
+     *          response=200,
+     *          description="Successful operation",
+     *          @OA\MediaType(
+     *           mediaType="application/json",
+     *      )
+     *      ),
+     *  )
      */
     public function store(Request $request)
     {
@@ -154,10 +176,28 @@ class BoatController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Boat  $boat
-     * @return \Illuminate\Http\Response
+     * @OA\Get(
+     *      path="/boat/{id}",
+     *      operationId="showBoat",
+     *      tags={"Boats"},
+     *      @OA\Parameter(
+     *          name="id",
+     *          in="path",
+     *          description="Id of boat",
+     *          required=true,
+     *          @OA\Schema(type="integer")
+     *      ),
+
+     *      summary="Get details Of boat",
+     *      description="Returns details Of boat",
+     *      @OA\Response(
+     *          response=200,
+     *          description="Successful operation",
+     *          @OA\MediaType(
+     *           mediaType="application/json",
+     *      )
+     *      ),
+     *  )
      */
     public function show($id)
     {
@@ -165,26 +205,28 @@ class BoatController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Boat  $boat
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($lang, $id)
-    {
-        $boat = Boat::with('pictures')->find($id);
+     * @OA\Put(
+     *      path="/boat/{id}",
+     *      operationId="updateBoat",
+     *      tags={"Boats"},
+     *      @OA\Parameter(
+     *          name="id",
+     *          in="path",
+     *          description="Id of boat",
+     *          required=true,
+     *          @OA\Schema(type="integer")
+     *      ),
 
-        $periods = Period::get();
-
-        return view('boat.edit', compact('lang', 'boat', 'periods'));
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Boat  $boat
-     * @return \Illuminate\Http\Response
+     *      summary="Update one boat",
+     *      description="Update one boat",
+     *      @OA\Response(
+     *          response=200,
+     *          description="Successful operation",
+     *          @OA\MediaType(
+     *           mediaType="application/json",
+     *      )
+     *      ),
+     *  )
      */
     public function update(Request $request, $id)
     {
@@ -295,19 +337,51 @@ class BoatController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Boat  $boat
-     * @return \Illuminate\Http\Response
+     * @OA\Delete(
+     *      path="/boat/{id}",
+     *      operationId="deleteBoat",
+     *      tags={"Boats"},
+     *      @OA\Parameter(
+     *          name="id",
+     *          in="path",
+     *          description="Id of boat",
+     *          required=true,
+     *          @OA\Schema(type="integer")
+     *      ),
+
+     *      summary="Delete one boat",
+     *      description="Delete one boat",
+     *      @OA\Response(
+     *          response=200,
+     *          description="Successful operation",
+     *          @OA\MediaType(
+     *           mediaType="application/json",
+     *      )
+     *      ),
+     *  )
      */
     public function destroy($id)
     {
-        // Boat::find($id)->delete();
         return new BoatResource(Boat::findOrFail($id)->delete());
-
-        // return redirect()->route('boat.index', app()->getLocale());
     }
 
+/**
+     * @OA\Post(
+     *      path="/boat-booking",
+     *      operationId="storeBoatBooking",
+     *      tags={"Boat Booking"},
+
+     *      summary="Store one boat booking",
+     *      description="Store one boat booking",
+     *      @OA\Response(
+     *          response=200,
+     *          description="Successful operation",
+     *          @OA\MediaType(
+     *           mediaType="application/json",
+     *      )
+     *      ),
+     *  )
+     */
     public function register_booking(Request $request)
     {
         $data = $request->validate([
@@ -335,7 +409,5 @@ class BoatController extends Controller
         foreach ($admins as $admin) {
             $admin->notify(new BoatBookingNotification($data, $boat));
         }
-
-        // return redirect()->route('boat.index', app()->getLocale())->with('success', 'Your boat rental reservation request has been sent, you will be contacted soon');
     }
 }

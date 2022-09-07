@@ -1,0 +1,976 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Api SDE for mobile sde",
+        "description": "Implementation of Swagger with in Laravel",
+        "version": "0.1"
+    },
+    "servers": [
+        {
+            "url": "https://haki44.eu/api",
+            "description": "API SDE"
+        }
+    ],
+    "paths": {
+        "/adventure-booking": {
+            "get": {
+                "tags": [
+                    "Adventure Booking"
+                ],
+                "summary": "Get all adventure booking",
+                "description": "Get all adventure booking",
+                "operationId": "IndexAdventureBooking",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {}
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Adventure Booking"
+                ],
+                "summary": "Store one Adventure booking",
+                "description": "Update one Adventure booking",
+                "operationId": "storeAdventureBooking",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {}
+                        }
+                    }
+                }
+            }
+        },
+        "/adventure-booking/{id}": {
+            "get": {
+                "tags": [
+                    "Adventure Booking"
+                ],
+                "summary": "Show one adventure booking",
+                "description": "Show one adventure booking",
+                "operationId": "ShowAdventureBooking",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Id of adventure booking",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {}
+                        }
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Adventure Booking"
+                ],
+                "summary": "Update one adventure booking",
+                "description": "Update one adventure booking",
+                "operationId": "UpdateAdventureBooking",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Id of adventure booking",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {}
+                        }
+                    }
+                }
+            }
+        },
+        "/adventure": {
+            "get": {
+                "tags": [
+                    "Adventures"
+                ],
+                "summary": "Get List Of adventures",
+                "description": "Returns all adventures",
+                "operationId": "indexAdventure",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "404": {
+                        "description": "not found"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Adventures"
+                ],
+                "summary": "Store adventure",
+                "description": "Store adventure",
+                "operationId": "storeAdventure",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {}
+                        }
+                    }
+                }
+            }
+        },
+        "/adventure/{id}": {
+            "get": {
+                "tags": [
+                    "Adventures"
+                ],
+                "summary": "Show one adventure",
+                "description": "Show one adventure",
+                "operationId": "ShowAdventure",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Id of adventure",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {}
+                        }
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Adventures"
+                ],
+                "summary": "Update one adventure",
+                "description": "Update one adventure",
+                "operationId": "updateAdventure",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Id of adventure",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {}
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Adventures"
+                ],
+                "summary": "Delete one adventure",
+                "description": "Delete one adventure",
+                "operationId": "deleteAdventure",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Id of adventure",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {}
+                        }
+                    }
+                }
+            }
+        },
+        "/login": {
+            "post": {
+                "tags": [
+                    "Authentification"
+                ],
+                "summary": "Login to the API",
+                "description": "Login to the API",
+                "operationId": "login",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {}
+                        }
+                    }
+                }
+            }
+        },
+        "/register": {
+            "post": {
+                "tags": [
+                    "Authentification"
+                ],
+                "summary": "Register to the API",
+                "description": "Register to the API",
+                "operationId": "register",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {}
+                        }
+                    }
+                }
+            }
+        },
+        "/getRole": {
+            "get": {
+                "tags": [
+                    "Auth User informations"
+                ],
+                "summary": "Get role to the authentificate user",
+                "description": "Get role to the authentificate user",
+                "operationId": "role",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {}
+                        }
+                    }
+                }
+            }
+        },
+        "/getAuthUser": {
+            "get": {
+                "tags": [
+                    "Auth User informations"
+                ],
+                "summary": "Get all infos to the authentificate user",
+                "description": "Get all infos to the authentificate user",
+                "operationId": "AuthUser",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {}
+                        }
+                    }
+                }
+            }
+        },
+        "/boat-booking": {
+            "get": {
+                "tags": [
+                    "Boat Booking"
+                ],
+                "summary": "Get all boat booking",
+                "description": "Get all boat booking",
+                "operationId": "IndexBoatBooking",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {}
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Boat Booking"
+                ],
+                "summary": "Store one boat booking",
+                "description": "Store one boat booking",
+                "operationId": "storeBoatBooking",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {}
+                        }
+                    }
+                }
+            }
+        },
+        "/boat-booking/{id}": {
+            "get": {
+                "tags": [
+                    "Boat Booking"
+                ],
+                "summary": "Show one boat booking",
+                "description": "Show one boat booking",
+                "operationId": "ShowBoatBooking",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Id of boat booking",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {}
+                        }
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Boat Booking"
+                ],
+                "summary": "Update one boat booking",
+                "description": "Update one boat booking",
+                "operationId": "UpdateBoatBooking",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Id of boat booking",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {}
+                        }
+                    }
+                }
+            }
+        },
+        "/boat": {
+            "get": {
+                "tags": [
+                    "Boats"
+                ],
+                "summary": "Get List Of boats",
+                "description": "Returns all boats",
+                "operationId": "indexBoat",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "404": {
+                        "description": "not found"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Boats"
+                ],
+                "summary": "Store boat",
+                "description": "Store boat",
+                "operationId": "storeBoat",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {}
+                        }
+                    }
+                }
+            }
+        },
+        "/boat/{id}": {
+            "get": {
+                "tags": [
+                    "Boats"
+                ],
+                "summary": "Get details Of boat",
+                "description": "Returns details Of boat",
+                "operationId": "showBoat",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Id of boat",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {}
+                        }
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Boats"
+                ],
+                "summary": "Update one boat",
+                "description": "Update one boat",
+                "operationId": "updateBoat",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Id of boat",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {}
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Boats"
+                ],
+                "summary": "Delete one boat",
+                "description": "Delete one boat",
+                "operationId": "deleteBoat",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Id of boat",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {}
+                        }
+                    }
+                }
+            }
+        },
+        "/contact": {
+            "get": {
+                "tags": [
+                    "Contact"
+                ],
+                "summary": "Get all contact",
+                "description": "Get all contact",
+                "operationId": "IndexContact",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {}
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Contact"
+                ],
+                "summary": "Store one contact",
+                "description": "Store one contact",
+                "operationId": "StoreContact",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {}
+                        }
+                    }
+                }
+            }
+        },
+        "/contact/{id}": {
+            "get": {
+                "tags": [
+                    "Contact"
+                ],
+                "summary": "Show one contact",
+                "description": "Show one contact",
+                "operationId": "ShowContact",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Id of contact",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {}
+                        }
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Contact"
+                ],
+                "summary": "Update one contact",
+                "description": "Update one contact",
+                "operationId": "UpdateContact",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Id of contact",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {}
+                        }
+                    }
+                }
+            }
+        },
+        "/event": {
+            "get": {
+                "tags": [
+                    "Events"
+                ],
+                "summary": "Get all Events",
+                "description": "Get all Events",
+                "operationId": "IndexEvent",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {}
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Events"
+                ],
+                "summary": "Store Event",
+                "description": "Store Event",
+                "operationId": "storeEvent",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {}
+                        }
+                    }
+                }
+            }
+        },
+        "/event/{id}": {
+            "get": {
+                "tags": [
+                    "Events"
+                ],
+                "summary": "Get one Event",
+                "description": "Get one Event",
+                "operationId": "ShowEvent",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Id of Event",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {}
+                        }
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Events"
+                ],
+                "summary": "Update one Event",
+                "description": "Update one Event",
+                "operationId": "UpdateEvent",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Id of Event",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {}
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Events"
+                ],
+                "summary": "Delete one Event",
+                "description": "Delete one Event",
+                "operationId": "DeleteEvent",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Id of Event",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {}
+                        }
+                    }
+                }
+            }
+        },
+        "/level": {
+            "get": {
+                "tags": [
+                    "Levels"
+                ],
+                "summary": "Get all Level",
+                "description": "Get all Level",
+                "operationId": "IndexLevel",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {}
+                        }
+                    }
+                }
+            }
+        },
+        "/period": {
+            "get": {
+                "tags": [
+                    "Periods"
+                ],
+                "summary": "Get all period",
+                "description": "Get all period",
+                "operationId": "IndexPeriod",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {}
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Periods"
+                ],
+                "summary": "Store period",
+                "description": "Store period",
+                "operationId": "StorePeriod",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {}
+                        }
+                    }
+                }
+            }
+        },
+        "/period/{id}": {
+            "put": {
+                "tags": [
+                    "Periods"
+                ],
+                "summary": "Update one period",
+                "description": "Update one period",
+                "operationId": "UpdatePeriod",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Id of period",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {}
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Periods"
+                ],
+                "summary": "Delete one period",
+                "description": "Delete one period",
+                "operationId": "DeletePeriod",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Id of period",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {}
+                        }
+                    }
+                }
+            }
+        },
+        "/picture": {
+            "get": {
+                "tags": [
+                    "Pictures"
+                ],
+                "summary": "Get all Picture",
+                "description": "Get all Picture",
+                "operationId": "IndexPicture",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {}
+                        }
+                    }
+                }
+            }
+        },
+        "/skipper": {
+            "get": {
+                "tags": [
+                    "Skippers"
+                ],
+                "summary": "Get all skipper",
+                "description": "Get all skipper",
+                "operationId": "IndexSkipper",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {}
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Skippers"
+                ],
+                "summary": "Store skipper",
+                "description": "Store skipper",
+                "operationId": "StoreSkipper",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {}
+                        }
+                    }
+                }
+            }
+        },
+        "/skipper/{id}": {
+            "get": {
+                "tags": [
+                    "Skippers"
+                ],
+                "summary": "Show one skipper",
+                "description": "Show one skipper",
+                "operationId": "ShowSkipper",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Id of skipper",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {}
+                        }
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Skippers"
+                ],
+                "summary": "Update one skipper",
+                "description": "Update one skipper",
+                "operationId": "UpdateSkipper",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Id of skipper",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {}
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Skippers"
+                ],
+                "summary": "Delete one skipper",
+                "description": "Delete one skipper",
+                "operationId": "DeleteSkipper",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Id of skipper",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {}
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

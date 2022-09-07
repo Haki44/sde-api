@@ -10,9 +10,21 @@ use Illuminate\Support\Facades\App;
 class PeriodController extends Controller
 {
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
+     * @OA\Get(
+     *      path="/period",
+     *      operationId="IndexPeriod",
+     *      tags={"Periods"},
+
+     *      summary="Get all period",
+     *      description="Get all period",
+     *      @OA\Response(
+     *          response=200,
+     *          description="Successful operation",
+     *          @OA\MediaType(
+     *           mediaType="application/json",
+     *      )
+     *      ),
+     *  )
      */
     public function index()
     {
@@ -20,20 +32,21 @@ class PeriodController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        return view('period.create');
-    }
+     * @OA\Post(
+     *      path="/period",
+     *      operationId="StorePeriod",
+     *      tags={"Periods"},
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     *      summary="Store period",
+     *      description="Store period",
+     *      @OA\Response(
+     *          response=200,
+     *          description="Successful operation",
+     *          @OA\MediaType(
+     *           mediaType="application/json",
+     *      )
+     *      ),
+     *  )
      */
     public function store(Request $request)
     {
@@ -49,40 +62,31 @@ class PeriodController extends Controller
         );
 
         Period::create($data);
-
-        return redirect()->route('period.index', app()->getLocale());
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Period  $period
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Period $period)
-    {
-        //
-    }
+     * @OA\Put(
+     *      path="/period/{id}",
+     *      operationId="UpdatePeriod",
+     *      tags={"Periods"},
+     *      @OA\Parameter(
+     *          name="id",
+     *          in="path",
+     *          description="Id of period",
+     *          required=true,
+     *          @OA\Schema(type="integer")
+     *      ),
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Period  $period
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($lang, $id)
-    {
-        $period = Period::find($id);
-
-        return view('period.edit', compact('period'));
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Period  $period
-     * @return \Illuminate\Http\Response
+     *      summary="Update one period",
+     *      description="Update one period",
+     *      @OA\Response(
+     *          response=200,
+     *          description="Successful operation",
+     *          @OA\MediaType(
+     *           mediaType="application/json",
+     *      )
+     *      ),
+     *  )
      */
     public function update(Request $request, $lang, $id)
     {
@@ -103,15 +107,31 @@ class PeriodController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Period  $period
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($lang, $id)
-    {
-        Period::find($id)->delete();
+     * @OA\Delete(
+     *      path="/period/{id}",
+     *      operationId="DeletePeriod",
+     *      tags={"Periods"},
+     *      @OA\Parameter(
+     *          name="id",
+     *          in="path",
+     *          description="Id of period",
+     *          required=true,
+     *          @OA\Schema(type="integer")
+     *      ),
 
-        return redirect()->route('period.index', app()->getLocale());
+     *      summary="Delete one period",
+     *      description="Delete one period",
+     *      @OA\Response(
+     *          response=200,
+     *          description="Successful operation",
+     *          @OA\MediaType(
+     *           mediaType="application/json",
+     *      )
+     *      ),
+     *  )
+     */
+    public function destroy($id)
+    {
+        return new PeriodResource(Period::findOrFail($id)->delete());
     }
 }

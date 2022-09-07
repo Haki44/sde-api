@@ -19,28 +19,60 @@ class AdventureController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+        /**
+     * @OA\Get(
+     *      path="/adventure",
+     *      operationId="indexAdventure",
+     *      tags={"Adventures"},
+
+     *      summary="Get List Of adventures",
+     *      description="Returns all adventures",
+     *      @OA\Response(
+     *          response=200,
+     *          description="Successful operation",
+     *          @OA\MediaType(
+     *           mediaType="application/json",
+     *      )
+     *      ),
+     *      @OA\Response(
+     *          response=401,
+     *          description="Unauthenticated",
+     *      ),
+     *      @OA\Response(
+     *          response=403,
+     *          description="Forbidden"
+     *      ),
+     * @OA\Response(
+     *      response=400,
+     *      description="Bad Request"
+     *   ),
+     * @OA\Response(
+     *      response=404,
+     *      description="not found"
+     *   ),
+     *  )
+     */
     public function index()
     {
         return AdventureResource::collection(Adventure::with(['pictures'])->paginate(30));
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        $levels = Level::get();
+     * @OA\Post(
+     *      path="/adventure",
+     *      operationId="storeAdventure",
+     *      tags={"Adventures"},
 
-        return view('adventure.create', compact('levels'));
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     *      summary="Store adventure",
+     *      description="Store adventure",
+     *      @OA\Response(
+     *          response=200,
+     *          description="Successful operation",
+     *          @OA\MediaType(
+     *           mediaType="application/json",
+     *      )
+     *      ),
+     *  )
      */
     public function store(Request $request)
     {
@@ -104,10 +136,28 @@ class AdventureController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Adventure  $adventure
-     * @return \Illuminate\Http\Response
+     * @OA\Get(
+     *      path="/adventure/{id}",
+     *      operationId="ShowAdventure",
+     *      tags={"Adventures"},
+     *      @OA\Parameter(
+     *          name="id",
+     *          in="path",
+     *          description="Id of adventure",
+     *          required=true,
+     *          @OA\Schema(type="integer")
+     *      ),
+
+     *      summary="Show one adventure",
+     *      description="Show one adventure",
+     *      @OA\Response(
+     *          response=200,
+     *          description="Successful operation",
+     *          @OA\MediaType(
+     *           mediaType="application/json",
+     *      )
+     *      ),
+     *  )
      */
     public function show($id)
     {
@@ -115,26 +165,28 @@ class AdventureController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Adventure  $adventure
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($lang, $id)
-    {
-        $adventure = Adventure::with('pictures')->find($id);
+     * @OA\Put(
+     *      path="/adventure/{id}",
+     *      operationId="updateAdventure",
+     *      tags={"Adventures"},
+     *      @OA\Parameter(
+     *          name="id",
+     *          in="path",
+     *          description="Id of adventure",
+     *          required=true,
+     *          @OA\Schema(type="integer")
+     *      ),
 
-        $levels = Level::get();
-
-        return view('adventure.edit', compact('lang', 'adventure', 'levels'));
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Adventure  $adventure
-     * @return \Illuminate\Http\Response
+     *      summary="Update one adventure",
+     *      description="Update one adventure",
+     *      @OA\Response(
+     *          response=200,
+     *          description="Successful operation",
+     *          @OA\MediaType(
+     *           mediaType="application/json",
+     *      )
+     *      ),
+     *  )
      */
     public function update(Request $request, $id)
     {
@@ -195,22 +247,51 @@ class AdventureController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Adventure  $adventure
-     * @return \Illuminate\Http\Response
+     * @OA\Delete(
+     *      path="/adventure/{id}",
+     *      operationId="deleteAdventure",
+     *      tags={"Adventures"},
+     *      @OA\Parameter(
+     *          name="id",
+     *          in="path",
+     *          description="Id of adventure",
+     *          required=true,
+     *          @OA\Schema(type="integer")
+     *      ),
+
+     *      summary="Delete one adventure",
+     *      description="Delete one adventure",
+     *      @OA\Response(
+     *          response=200,
+     *          description="Successful operation",
+     *          @OA\MediaType(
+     *           mediaType="application/json",
+     *      )
+     *      ),
+     *  )
      */
     public function destroy($id)
     {
         return new AdventureResource(Adventure::findOrFail($id)->delete());
     }
 
-    // public function booking($lang, $id)
-    // {
-    //     $adventure = Adventure::find($id);
-    //     return view('adventure.booking', compact('lang', 'adventure'));
-    // }
+    /**
+     * @OA\Post(
+     *      path="/adventure-booking",
+     *      operationId="storeAdventureBooking",
+     *      tags={"Adventure Booking"},
 
+     *      summary="Store one Adventure booking",
+     *      description="Update one Adventure booking",
+     *      @OA\Response(
+     *          response=200,
+     *          description="Successful operation",
+     *          @OA\MediaType(
+     *           mediaType="application/json",
+     *      )
+     *      ),
+     *  )
+     */
     public function register_booking(Request $request)
     {
         $data = $request->validate([
@@ -236,7 +317,5 @@ class AdventureController extends Controller
         foreach ($admins as $admin) {
             $admin->notify(new AdventureBookingNotification($data, $adventure));
         }
-
-        // return redirect()->route('adventure.index', app()->getLocale())->with('success', 'Your advenure reservation request has been sent, you will be contacted soon');
     }
 }

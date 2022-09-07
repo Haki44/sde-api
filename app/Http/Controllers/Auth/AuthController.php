@@ -12,11 +12,23 @@ use Illuminate\Validation\Rules;
 
 class AuthController extends Controller
 {
-    public function login(): View
-    {
-        return view('auth.login');
-    }
+    /**
+     * @OA\Post(
+     *      path="/login",
+     *      operationId="login",
+     *      tags={"Authentification"},
 
+     *      summary="Login to the API",
+     *      description="Login to the API",
+     *      @OA\Response(
+     *          response=200,
+     *          description="Successful operation",
+     *          @OA\MediaType(
+     *           mediaType="application/json",
+     *      )
+     *      ),
+     *  )
+     */
     public function authenticate(Request $request)
     {
         $user = User::where('email', $request->email)->first();
@@ -28,6 +40,23 @@ class AuthController extends Controller
         }
     }
 
+    /**
+     * @OA\Post(
+     *      path="/register",
+     *      operationId="register",
+     *      tags={"Authentification"},
+
+     *      summary="Register to the API",
+     *      description="Register to the API",
+     *      @OA\Response(
+     *          response=200,
+     *          description="Successful operation",
+     *          @OA\MediaType(
+     *           mediaType="application/json",
+     *      )
+     *      ),
+     *  )
+     */
     public function register(Request $request)
     {
         $request->validate([
@@ -47,18 +76,25 @@ class AuthController extends Controller
             'tel' => $request->tel,
             'password' => Hash::make($request->password),
         ]);
-        // $data = $request->validate([
-        //     'name' => 'required',
-        //     'firstname' => 'required',
-        //     'nationality' => 'required',
-        //     'tel' => 'required',
-        //     'email' => 'required',
-        //     'password' => 'required',
-        // ]);
-
-        // $deck = Deck::create($data);
     }
 
+    /**
+     * @OA\Get(
+     *      path="/getRole",
+     *      operationId="role",
+     *      tags={"Auth User informations"},
+
+     *      summary="Get role to the authentificate user",
+     *      description="Get role to the authentificate user",
+     *      @OA\Response(
+     *          response=200,
+     *          description="Successful operation",
+     *          @OA\MediaType(
+     *           mediaType="application/json",
+     *      )
+     *      ),
+     *  )
+     */
     public function getRole()
     {
         return response()->json([
@@ -66,15 +102,27 @@ class AuthController extends Controller
         ]);
     }
 
+    /**
+     * @OA\Get(
+     *      path="/getAuthUser",
+     *      operationId="AuthUser",
+     *      tags={"Auth User informations"},
+
+     *      summary="Get all infos to the authentificate user",
+     *      description="Get all infos to the authentificate user",
+     *      @OA\Response(
+     *          response=200,
+     *          description="Successful operation",
+     *          @OA\MediaType(
+     *           mediaType="application/json",
+     *      )
+     *      ),
+     *  )
+     */
     public function getAuthUser()
     {
         return response()->json([
             auth()->user()
         ]);
-    }
-
-    public function logout()
-    {
-        //
     }
 }
